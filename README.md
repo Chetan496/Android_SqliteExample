@@ -7,3 +7,11 @@ It also has few usages which shows using lambda expressions for event handling i
 To enable lambda expression usage you have to enable the Jack toolchain in the build.gradle of the
 module.
 
+### Using custom ArrayListAdapter
+The code also demonstrates using a custom ArrayAdapter to display objects in a list view
+
+
+#### TODO:
+Use `CursorAdapter` instead of ArrayAdapter to get the actual data from the SQLite database.
+
+

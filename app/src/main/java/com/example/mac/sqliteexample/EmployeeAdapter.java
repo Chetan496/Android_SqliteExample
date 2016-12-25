@@ -25,6 +25,15 @@ public class EmployeeAdapter extends ArrayAdapter<Employee> {
     * R.id.employee_list_view_template.xml*/
     private int resource;
 
+    //View lookup cache - for faster view lookup
+    // a view holder saves you from calling findViewById when a view is being recycled
+    //its a caching mechanism , you can cache the frequently used UI widgets in the list view
+    //so its helpful from a performance perspective
+    private static class ViewHolder {
+        TextView name;
+        TextView designation;
+    }
+
     public EmployeeAdapter(Context context, int resource, List<Employee> employees) {
         super(context, resource, employees);
         this.resource = resource ;
@@ -35,29 +44,37 @@ public class EmployeeAdapter extends ArrayAdapter<Employee> {
 
         Employee employee = getItem(position);
 
+        //view lookup cache stored in tag
+        ViewHolder viewHolder ;
+
         if(convertView == null){
             //means we are not reusing an old view..
-            //so inflate the view
+            //so inflate the view i.e create a new row view
+
             convertView = LayoutInflater.from(getContext()).
                     inflate(resource, parent, false);
+
+            viewHolder = new ViewHolder();
+            viewHolder.name = (TextView) convertView.findViewById(R.id.tvName);
+            viewHolder.designation = (TextView) convertView.findViewById(R.id.tvDesignation);
+
+            //cache the viewHolder object inside the fresh view
+            //setTag allows us to attach an arbitrary object onto a View object
+            convertView.setTag(viewHolder);
+
+        }else{
+            //view is being recycled, get the viewHolder from the cache i.e from the associated tag
+            viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        TextView tvName = (TextView) convertView.findViewById(R.id.tvName);
-        TextView tvDesignation = (TextView) convertView.findViewById(R.id.tvDesignation);
+        final String fullName = employee.getFullNameOfEmployee();
+        final String designation = employee.getDesignation();
 
-        String fullName = getFullNameOfEmployee(employee);
-        String designation = employee.getDesignation();
-
-        tvName.setText(fullName);
-        tvDesignation.setText(designation);
+        viewHolder.name.setText(fullName);
+        viewHolder.designation.setText(designation);
 
         return  convertView;
 
     }
 
-    private String getFullNameOfEmployee(Employee employee) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(employee.getFirstName()).append(" ").append(employee.getLastName());
-        return sb.toString();
-    }
 }

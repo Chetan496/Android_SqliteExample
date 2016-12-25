@@ -63,4 +63,10 @@ public class Employee {
     public void setDesignation(String designation) {
         this.designation = designation;
     }
+
+    public String getFullNameOfEmployee() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getFirstName()).append(" ").append(getLastName());
+        return sb.toString();
+    }
 }

@@ -37,6 +37,32 @@ public class DBWrapperEmployee {
         is inserted*/
     }
 
+    public Cursor getAll(final SQLiteDatabase sqLiteDatabase){
+        final String[] projection = {
+                EmployeeManagementContract.EmployeeTbl._ID,
+                EmployeeManagementContract.EmployeeTbl.COLUMN_NAME_FIRSTNAME,
+                EmployeeManagementContract.EmployeeTbl.COLUMN_NAME_LASTNAME,
+                EmployeeManagementContract.EmployeeTbl.COLUMN_NAME_DEPARTMENT,
+                EmployeeManagementContract.EmployeeTbl.COLUMN_NAME_DESIGNATION
+        };
+
+        final String sortOrder = EmployeeManagementContract.EmployeeTbl.COLUMN_NAME_FIRSTNAME
+                + " ASC";
+
+        Cursor cursor = sqLiteDatabase.query(
+                false,
+                EmployeeManagementContract.EmployeeTbl.TABLE_NAME,
+                projection,
+                null,
+                null,
+                null,
+                null,
+                sortOrder,
+                null
+        );
+
+        return cursor;
+    }
 
     public Employee queryById(final long id, final SQLiteDatabase sqLiteDatabase) {
 

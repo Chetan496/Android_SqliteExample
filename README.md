@@ -8,7 +8,9 @@ To enable lambda expression usage you have to enable the Jack toolchain in the b
 module.
 
 ### Using custom ArrayListAdapter
-The code also demonstrates using a custom ArrayAdapter to display objects in a list view
+The code also demonstrates using a custom ArrayAdapter to display objects in a list view.
+It also uses the `ViewHolder` pattern to cache recycled views. The `ViewHolder` pattern avoids 
+calling `findViewById()` which can be quite expensive
 
 
 #### TODO:

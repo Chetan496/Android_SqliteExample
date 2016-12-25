@@ -24,6 +24,8 @@ import android.widget.Button;
 
 /*TODO: learn to use databinding library..there are two way databinding libraries available for android*/
 
+/* TODO: instead of using a empIdto pass the data between activities, you can use a parcelable to pass the whole Employee object*/
+
 public class MainActivity extends Activity {
 
     @Override
